@@ -29,6 +29,7 @@ const ImageGenerator: FC = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useState(false);
   const [snackBar, setSnackbar] = useState(false);
+  const [textValue, setTextValue] = useState("");
 
   const openSnackbar = () => {
     setSnackbar(true);
@@ -103,13 +104,15 @@ const ImageGenerator: FC = () => {
           label="Describe what you wanna see"
           margin="normal"
           variant="outlined"
+          value={textValue}
+          onChange={(e) => setTextValue(e.target.value)} // update textValue on each change
           InputProps={{
             endAdornment: (
               <ColorButton
                 onClick={() => {
                   imageGenerator();
                 }}
-                disabled={loading}
+                disabled={loading || !textValue}
               >
                 Generate
               </ColorButton>
